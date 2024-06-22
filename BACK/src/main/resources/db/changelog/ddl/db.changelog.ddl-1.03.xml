@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+
+    <changeSet id="db.changelog.ddl-1.03" author="guilherme.baccarin">
+
+        <preConditions>
+            <not>
+                <tableExists tableName="usuario" schemaName="gerenciamento-usuarios"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="usuario_id_seq" startValue="1" incrementBy="1" schemaName="gerenciamento-usuarios"/>
+
+        <createTable tableName="usuario" schemaName="gerenciamento-usuarios">
+            <column name="id" type="BIGINT" defaultValue="nextval('gerenciamento-usuarios.usuario_id_seq')">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(255)"/>
+
+            <!-- Relacionamento com a tabela documento -->
+            <column name="documento_id" type="BIGINT"/>
+            <!-- Enum Sexo como VARCHAR -->
+            <column name="sexo" type="VARCHAR(10)"/>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="usuario" baseColumnNames="documento_id" baseTableSchemaName="usuarios"
+                                 constraintName="FK_usuario_documento"
+                                 referencedTableName="documento" referencedColumnNames="id" referencedTableSchemaName="usuarios"/>
+    </changeSet>
+
+</databaseChangeLog>
