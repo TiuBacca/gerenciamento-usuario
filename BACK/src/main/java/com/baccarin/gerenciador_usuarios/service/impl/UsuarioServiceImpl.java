@@ -1,11 +1,13 @@
 package com.baccarin.gerenciador_usuarios.service.impl;
 
 import com.baccarin.gerenciador_usuarios.domain.Departamento;
+import com.baccarin.gerenciador_usuarios.domain.Documento;
 import com.baccarin.gerenciador_usuarios.domain.Usuario;
 import com.baccarin.gerenciador_usuarios.exceptions.RegistroIncompletoException;
 import com.baccarin.gerenciador_usuarios.exceptions.RegistroNaoEncontradoException;
 import com.baccarin.gerenciador_usuarios.filtros.UsuarioFiltro;
 import com.baccarin.gerenciador_usuarios.repository.DepartamentoRepository;
+import com.baccarin.gerenciador_usuarios.repository.DocumentoRepository;
 import com.baccarin.gerenciador_usuarios.repository.UsuarioRepository;
 import com.baccarin.gerenciador_usuarios.request.UsuarioRequest;
 import com.baccarin.gerenciador_usuarios.service.UsuarioService;
@@ -24,6 +26,7 @@ import java.util.Objects;
 public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final DocumentoRepository documentoRepository;
     private final DepartamentoRepository departamentoRepository;
 
     @Override
@@ -37,17 +40,55 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = usuarioRepository.findById(request.getId())
                 .map(existingUsuario -> {
                     existingUsuario.setNome(request.getNome());
-//                    existingUsuario.setDocumento(request.getDocumento());
                     existingUsuario.setSexo(request.getSexo());
                     return existingUsuario;
                 })
                 .orElseGet(() -> {
                     Usuario newUser = new Usuario();
                     newUser.setNome(request.getNome());
-//                    newUser.setDocumento(request.getDocumento());
                     newUser.setSexo(request.getSexo());
                     return newUser;
                 });
+
+//        if (Objects.nonNull(request.getDocumento()) && ( Objects.nonNull(request.getDocumento().getTipo()) || StringUtils.isNotBlank(request.getDocumento().getDocumento()))){
+//            Documento doc = Documento.builder().id(request.getDocumento().getId()).documento(request.getDocumento().getDocumento()).build();
+//            doc = documentoRepository.save(doc);
+//            usuario.setDocumento(doc);
+//        }
+//
+//        if (Objects.nonNull(request.getDepartamento()) && ( Objects.nonNull(request.getDepartamento().getId()) || StringUtils.isNotBlank(request.getDepartamento().getNome()))){
+//            Departamento dep = Departamento.builder().id(request.getDepartamento().getId()).nome(request.getDepartamento().getNome()).build();
+//            dep = departamentoRepository.save(dep);
+//            usuario.setDepartamento(dep);
+//        }
+
+        if (request.getDocumento() != null && (request.getDocumento().getId() != null || StringUtils.isNotBlank(request.getDocumento().getDocumento()))) {
+            Documento documento = request.getDocumento().getId() != null ?
+                    documentoRepository.findById(request.getDocumento().getId())
+                            .orElseGet(Documento::new) :
+                    new Documento();
+
+            documento.setDocumento(request.getDocumento().getDocumento());
+            documento = documentoRepository.save(documento);
+
+            usuario.setDocumento(documento);
+        } else {
+            usuario.setDocumento(null);
+        }
+
+        if (request.getDepartamento() != null && (request.getDepartamento().getId() != null || StringUtils.isNotBlank(request.getDepartamento().getNome()))) {
+            Departamento departamento = request.getDepartamento().getId() != null ?
+                    departamentoRepository.findById(request.getDepartamento().getId())
+                            .orElseGet(Departamento::new) :
+                    new Departamento();
+
+            departamento.setNome(request.getDepartamento().getNome());
+            departamento = departamentoRepository.save(departamento);
+
+            usuario.setDepartamento(departamento);
+        } else {
+            usuario.setDepartamento(null);
+        }
 
         usuarioRepository.save(usuario);
     }
