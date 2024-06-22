@@ -1,12 +1,11 @@
 package com.baccarin.gerenciador_usuarios.repository;
 
 import com.baccarin.gerenciador_usuarios.domain.Usuario;
+import com.baccarin.gerenciador_usuarios.filtros.UsuarioFiltro;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.List;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-
-    List<Usuario> findByDocumentoId(Long documentoId);
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> , JpaSpecificationExecutor<Usuario> {
 
 }

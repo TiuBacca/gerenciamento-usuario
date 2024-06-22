@@ -30,5 +30,8 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
+    @ManyToOne
+    @JoinColumn(name = "departamento_id")
+    private Departamento departamento;
 
 }

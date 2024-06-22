@@ -21,18 +21,19 @@
             <column name="id" type="BIGINT" defaultValue="nextval('gerenciamento-usuarios.usuario_id_seq')">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="nome" type="VARCHAR(255)"/>
-
-            <!-- Relacionamento com a tabela documento -->
-            <column name="documento_id" type="BIGINT"/>
-            <!-- Enum Sexo como VARCHAR -->
-            <column name="sexo" type="VARCHAR(10)"/>
+            <column name="nome" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="documento_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sexo" type="VARCHAR(30)"/>
 
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="usuario" baseColumnNames="documento_id" baseTableSchemaName="usuarios"
+        <addForeignKeyConstraint baseTableName="usuario" baseColumnNames="documento_id" baseTableSchemaName="gerenciamento-usuarios"
                                  constraintName="FK_usuario_documento"
-                                 referencedTableName="documento" referencedColumnNames="id" referencedTableSchemaName="usuarios"/>
+                                 referencedTableName="documento" referencedColumnNames="id" referencedTableSchemaName="gerenciamento-usuarios"/>
     </changeSet>
 
 </databaseChangeLog>

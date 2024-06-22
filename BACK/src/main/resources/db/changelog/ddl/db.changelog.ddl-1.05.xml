@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+
+    <changeSet id="db.changelog.ddl-1.05" author="guilherme.baccarin">
+
+        <preConditions>
+             <tableExists tableName="usuario" schemaName="gerenciamento-usuarios"/>
+            <not>
+                <columnExists tableName="usuario" columnName="departamento_id"/>
+            </not>
+        </preConditions>
+
+        <addColumn tableName="usuario" schemaName="gerenciamento-usuarios">
+            <column name="departamento_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+
+        <addForeignKeyConstraint baseTableName="usuario" baseColumnNames="departamento_id" baseTableSchemaName="gerenciamento-usuarios"
+                                 constraintName="FK_usuario_departamento"
+                                 referencedTableName="departamento" referencedColumnNames="id" referencedTableSchemaName="gerenciamento-usuarios"/>
+
+    </changeSet>
+
+
+</databaseChangeLog>

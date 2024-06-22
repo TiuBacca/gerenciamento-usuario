@@ -9,5 +9,7 @@
     <include file="db.changelog.ddl-1.01.xml" relativeToChangelogFile="true" />
     <include file="db.changelog.ddl-1.02.xml" relativeToChangelogFile="true" />
     <include file="db.changelog.ddl-1.03.xml" relativeToChangelogFile="true" />
+    <include file="db.changelog.ddl-1.04.xml" relativeToChangelogFile="true" />
+    <include file="db.changelog.ddl-1.05.xml" relativeToChangelogFile="true" />
 
 </databaseChangeLog>
