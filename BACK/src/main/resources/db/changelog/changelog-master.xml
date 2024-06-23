@@ -6,10 +6,14 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <include file="db.changelog.ddl-1.01.xml" relativeToChangelogFile="true" />
-    <include file="db.changelog.ddl-1.02.xml" relativeToChangelogFile="true" />
-    <include file="db.changelog.ddl-1.03.xml" relativeToChangelogFile="true" />
-    <include file="db.changelog.ddl-1.04.xml" relativeToChangelogFile="true" />
-    <include file="db.changelog.ddl-1.05.xml" relativeToChangelogFile="true" />
+<!--DDL    -->
+    <include file="ddl/db.changelog.ddl-1.01.xml" relativeToChangelogFile="true" />
+    <include file="ddl/db.changelog.ddl-1.02.xml" relativeToChangelogFile="true" />
+    <include file="ddl/db.changelog.ddl-1.03.xml" relativeToChangelogFile="true" />
+    <include file="ddl/db.changelog.ddl-1.04.xml" relativeToChangelogFile="true" />
+    <include file="ddl/db.changelog.ddl-1.05.xml" relativeToChangelogFile="true" />
+
+<!--DML-->
+    <include file="dml/db.changelog.dml-1.01.xml" relativeToChangelogFile="true" />
 
 </databaseChangeLog>

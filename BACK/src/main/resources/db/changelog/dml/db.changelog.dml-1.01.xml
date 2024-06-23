@@ -9,12 +9,13 @@
     <changeSet id="db.changelog.ddl-1.01" author="guilherme.baccarin" >
     <preConditions onFail="MARK_RAN">
         <sqlCheck expectedResult="0">
-            select count(*) from information_schema.schemata where schema_name = 'gerenciamento_usuarios';
+            select count(*) from gerenciamento_usuarios.departamento;
         </sqlCheck>
     </preConditions>
 
         <sql>
-            CREATE SCHEMA gerenciamento_usuarios;
+            insert into gerenciador_usuarios.departamento(nome)
+            values('Desenvolvimento'),('Administrativo'),('Financeiro'),('Jurídico'),('Marketing'),('Vendas');
         </sql>
 
     </changeSet>

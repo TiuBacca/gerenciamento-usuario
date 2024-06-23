@@ -8,16 +8,19 @@
 
     <changeSet id="db.changelog.ddl-1.02" author="guilherme.baccarin">
 
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="documento" schemaName="gerenciamento-usuarios"/>
+                <tableExists tableName="documento" schemaName="gerenciamento_usuarios"/>
             </not>
         </preConditions>
 
-        <createSequence sequenceName="documento_id_seq" startValue="1" incrementBy="1" schemaName="gerenciamento-usuarios"/>
+        <createSequence sequenceName="documento_id_seq" startValue="1" incrementBy="1" schemaName="gerenciamento_usuarios"/>
 
-        <createTable tableName="documento" schemaName="gerenciamento-usuarios">
-            <column name="id" type="BIGINT" defaultValue="nextval('gerenciamento-usuarios.documento_id_seq')">
+        <createTable tableName="documento" schemaName="gerenciamento_usuarios">
+
+            <column name="id" type="BIGINT" defaultValue="nextval('gerenciamento_usuarios
+
+.documento_id_seq')">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="documento" type="VARCHAR(255)" >
@@ -25,7 +28,7 @@
         </column>
         </createTable>
 
-        <addUniqueConstraint schemaName="gerenciamento-usuarios"
+        <addUniqueConstraint schemaName="gerenciamento_usuarios"
                              tableName="documento"
                              columnNames="documento"
                              constraintName="UK_documento_documento"/>

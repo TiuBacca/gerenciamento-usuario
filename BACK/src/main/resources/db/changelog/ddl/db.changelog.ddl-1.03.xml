@@ -9,16 +9,16 @@
 
     <changeSet id="db.changelog.ddl-1.03" author="guilherme.baccarin">
 
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="usuario" schemaName="gerenciamento-usuarios"/>
+                <tableExists tableName="usuario" schemaName="gerenciamento_usuarios"/>
             </not>
         </preConditions>
 
-        <createSequence sequenceName="usuario_id_seq" startValue="1" incrementBy="1" schemaName="gerenciamento-usuarios"/>
+        <createSequence sequenceName="usuario_id_seq" startValue="1" incrementBy="1" schemaName="gerenciamento_usuarios"/>
 
-        <createTable tableName="usuario" schemaName="gerenciamento-usuarios">
-            <column name="id" type="BIGINT" defaultValue="nextval('gerenciamento-usuarios.usuario_id_seq')">
+        <createTable tableName="usuario" schemaName="gerenciamento_usuarios">
+            <column name="id" type="BIGINT" defaultValue="nextval('gerenciamento_usuarios.usuario_id_seq')">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="nome" type="VARCHAR(255)">
@@ -31,9 +31,9 @@
 
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="usuario" baseColumnNames="documento_id" baseTableSchemaName="gerenciamento-usuarios"
+        <addForeignKeyConstraint baseTableName="usuario" baseColumnNames="documento_id" baseTableSchemaName="gerenciamento_usuarios"
                                  constraintName="FK_usuario_documento"
-                                 referencedTableName="documento" referencedColumnNames="id" referencedTableSchemaName="gerenciamento-usuarios"/>
+                                 referencedTableName="documento" referencedColumnNames="id" referencedTableSchemaName="gerenciamento_usuarios"/>
     </changeSet>
 
 </databaseChangeLog>
